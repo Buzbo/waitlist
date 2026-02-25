@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzbo — Get hired for who you are</title>
+    <meta name="description"
+        content="Buzbo connects professionals directly with business managers based on soft skills, culture fit, and ambition. Not your CV.">
+    <meta property="og:title" content="Buzbo — Get hired for who you are">
+    <meta property="og:description"
+        content="Join the waitlist. Skip HR. Connect directly with the manager who makes the call.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --maroon: #7B1C1C;
+            --maroon-bright: #9B2525;
+            --maroon-glow: rgba(123, 28, 28, 0.15);
+            --orange: #C4511F;
+            --orange-soft: rgba(196, 81, 31, 0.1);
+            --beige: #F5EDD8;
+            --beige-dark: #EDE0C4;
+            --white: #FFFFFF;
+            --bg: #FAFAF8;
+            --bg2: #F5EDD8;
+            /* Using beige for alternating sections */
+            --surface: #FFFFFF;
+            --border: rgba(123, 28, 28, 0.12);
+            /* Subtle maroon border */
+            --border-strong: rgba(123, 28, 28, 0.25);
+            --text: #1A1A1A;
+            --muted: #4A4A4A;
+            --subtle: #7A7A7A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NOISE GRAIN ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ── LANG SWITCHER ── */
+        .lang-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 48px;
+            background: rgba(250, 250, 248, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-img {
+            height: 28px;
+            width: auto;
+            /* Approximate Maroon color via CSS filter: #7B1C1C */
+            filter: brightness(0) saturate(100%) invert(18%) sepia(50%) saturate(3015%) hue-rotate(344deg) brightness(85%) contrast(100%);
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 4px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            border: none;
+            color: var(--subtle);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: var(--maroon);
+            color: var(--white);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Radial glow background */
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse, var(--orange-soft) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-strong);
+            background: rgba(196, 81, 31, 0.06);
+            border-radius: 100px;
+            padding: 7px 18px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--orange);
+            text-transform: uppercase;
+            margin-bottom: 36px;
+            animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            max-width: 900px;
+            margin-bottom: 24px;
+            color: var(--text);
+            position: relative;
+            z-index: 1;
+            animation: rise 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--maroon);
+            position: relative;
+        }
+
+        .hero-sub {
+            font-size: clamp(15px, 2vw, 18px);
+            color: var(--muted);
+            line-height: 1.75;
+            max-width: 580px;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+            animation: rise 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        /* ── COUNTER ── */
+        .live-counter {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+            animation: rise 0.8s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .counter-avatars {
+            display: flex;
+        }
+
+        .counter-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--beige-dark);
+            border: 2px solid var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            margin-left: -8px;
+            color: var(--maroon);
+            font-weight: 600;
+        }
+
+        .counter-avatar:first-child {
+            margin-left: 0;
+        }
+
+        .counter-text {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .counter-text strong {
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        /* ── SIGNUP FORM ── */
+        .signup-wrap {
+            position: relative;
+            z-index: 1;
+            animation: rise 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .signup-form {
+            display: flex;
+            gap: 8px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .signup-form:focus-within {
+            border-color: var(--maroon);
+            box-shadow: 0 4px 20px var(--maroon-glow);
+        }
+
+        .signup-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 15px;
+            padding: 10px 14px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+
+        .signup-input::placeholder {
+            color: var(--subtle);
+        }
+
+        .signup-btn {
+            background: var(--maroon);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        .signup-btn:hover {
+            background: var(--maroon-bright);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--maroon-glow);
+        }
+
+        .signup-note {
+            font-size: 12px;
+            color: var(--subtle);
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* ── SUCCESS STATE ── */
+        .success-card {
+            display: none;
+            background: var(--white);
+            border: 1px solid var(--border-strong);
+            border-radius: 20px;
+            padding: 36px 32px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .success-card.show {
+            display: block;
+        }
+
+        .success-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--maroon);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .success-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .success-share-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+
+        .share-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .share-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .share-hint {
+            font-size: 12px;
+            color: var(--subtle);
+            margin-top: 12px;
+        }
+
+        /* ── SCROLL INDICATOR ── */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--subtle);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: rise 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .scroll-arrow {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bob 2s infinite ease-in-out;
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(4px);
+            }
+        }
+
+        /* ── SECTIONS ── */
+        .section {
+            padding: 100px 48px;
+            max-width: 1160px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 54px);
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 64px;
+            color: var(--text);
+        }
+
+        .section h2 em {
+            font-style: italic;
+            color: var(--maroon);
+        }
+
+        /* ── STATS (NUMBERS) SECTION ── */
+        .stats-text-center {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-text {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .stats-text strong {
+            color: var(--maroon);
+            font-weight: 600;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 1px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .stat {
+            flex: 1;
+            background: var(--white);
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .stat:nth-child(even) {
+            background: var(--bg);
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-num span {
+            color: var(--maroon);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* ── PROBLEM / SOLUTION SPLIT ── */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--border);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .split-col {
+            padding: 48px 40px;
+        }
+
+        .split-col:first-child {
+            background: var(--white);
+        }
+
+        .split-col:last-child {
+            background: var(--bg2);
+        }
+
+        /* Using Beige for solution side */
+        .split-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .split-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .split-label.bad {
+            color: var(--muted);
+        }
+
+        .split-label.good {
+            color: var(--orange);
+        }
+
+        .split-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .split-item:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .split-icon {
+            font-size: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .split-item-text {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .split-item-text strong {
+            color: var(--text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ── WHY BUZBO (V2 content in V1 format) ── */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 44px 36px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .value-card:hover {
+            background: var(--bg);
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--maroon), var(--orange));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--border-strong);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .value-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .value-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .value-tag {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: var(--orange-soft);
+            border: 1px solid rgba(196, 81, 31, 0.2);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--orange);
+        }
+
+        /* ── PROOF QUOTES ── */
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .quote-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: border-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+        }
+
+        .quote-card:hover {
+            border-color: var(--maroon);
+            transform: translateY(-4px);
+        }
+
+        .quote-mark {
+            font-size: 40px;
+            color: var(--maroon);
+            line-height: 1;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .quote-text {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .quote-author {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .quote-role {
+            font-size: 12px;
+            color: var(--subtle);
+            margin-top: 4px;
+        }
+
+        /* ── BOTTOM CTA ── */
+        .bottom-cta {
+            max-width: 1160px;
+            margin: 0 auto 100px;
+            padding: 0 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-card {
+            background: var(--maroon);
+            border-radius: 24px;
+            padding: 72px 64px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(123, 28, 28, 0.2);
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+        }
+
+        .cta-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 48px);
+            letter-spacing: -1px;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .cta-card p {
+            font-size: 16px;
+            color: var(--beige);
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 8px;
+            max-width: 440px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .cta-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: var(--white);
+            font-size: 15px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .cta-input:focus {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .cta-btn {
+            background: var(--beige);
+            color: var(--maroon);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            background: var(--white);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--maroon);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--subtle);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .lang-bar {
+                padding: 16px 24px;
+            }
+
+            .section {
+                padding: 64px 24px;
+            }
+
+            .split,
+            .quotes-grid,
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                flex-direction: column;
+            }
+
+            .bottom-cta {
+                padding: 0 24px;
+            }
+
+            .cta-card {
+                padding: 48px 28px;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 32px 24px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+        }
+
+        /* ── TRANSLATIONS ── */
+        [lang-en],
+        [lang-nl] {
+            display: none !important;
+        }
+
+        .en [lang-en] {
+            display: block !important;
+        }
+
+        .nl [lang-nl] {
+            display: block !important;
+        }
+
+        .en span[lang-en],
+        .nl span[lang-nl] {
+            display: inline !important;
+        }
+
+        .en strong[lang-en],
+        .nl strong[lang-nl] {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body class="en">
+
+    <!-- NAV -->
+    <nav class="lang-bar">
+        <div class="logo">
+            <img src="Logo Red.png" alt="Buzbo" class="logo-img" style="filter: none;">
+        </div>
+        <div class="lang-toggle">
+            <button class="lang-btn active" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('nl')">NL</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-eyebrow">
+            <div class="pulse-dot"></div>
+            <span lang-en>Waitlist open · Limited spots</span>
+            <span lang-nl>Wachtlijst open · Beperkte plekken</span>
+        </div>
+
+        <h1 lang-en>Get hired for<br><em>who you are</em></h1>
+        <h1 lang-nl>Gevonden worden<br>om <em>wie je bent</em></h1>
+
+        <p class="hero-sub" lang-en>Buzbo connects you directly with the business manager — not HR, not a recruiter. The
+            person who actually decides, who understands the team, and who cares about more than your CV.</p>
+        <p class="hero-sub" lang-nl>Buzbo verbindt je direct met de business manager — niet HR, niet een recruiter. De
+            persoon die écht beslist, het team kent, en verder kijkt dan je CV.</p>
+
+        <!-- Counter -->
+        <div class="live-counter">
+            <div class="counter-avatars">
+                <div class="counter-avatar">👩</div>
+                <div class="counter-avatar">👨</div>
+                <div class="counter-avatar">👩</div>
+                <div class="counter-avatar">👨</div>
+                <div class="counter-avatar">+</div>
+            </div>
+            <div class="counter-text">
+                <span lang-en>Already <strong id="count-en">326+</strong> people on the waitlist</span>
+                <span lang-nl>Al <strong id="count-nl">326+</strong> mensen op de wachtlijst</span>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="signup-wrap" id="form-wrap">
+            <div class="signup-form" id="signup-form">
+                <input class="signup-input" type="email" id="email-input" name="email" placeholder="your@email.com"
+                    autocomplete="email" required>
+                <button type="submit" class="signup-btn" id="signup-btn" onclick="handleSignup()">
+                    <span lang-en>Claim your spot →</span>
+                    <span lang-nl>Claim je plek →</span>
+                </button>
+            </div>
+            <div class="signup-note">
+                <span lang-en>Free. No spam. One-click submit.</span>
+                <span lang-nl>Gratis. Geen spam. Met 1 klik verstuurd.</span>
+            </div>
+
+            <!-- Success state -->
+            <div class="success-card" id="success-card">
+                <div class="success-num" id="position-num">#327</div>
+                <div class="success-label">
+                    <span lang-en>You're on the Buzbo waitlist 🎉</span>
+                    <span lang-nl>Je staat op de Buzbo-wachtlijst 🎉</span>
+                </div>
+                <div class="success-share-label">
+                    <span lang-en>Share with friends → move up the list</span>
+                    <span lang-nl>Deel met vrienden → stijg op de lijst</span>
+                </div>
+                <div class="share-btns">
+                    <a class="share-btn" href="#" onclick="shareLinkedIn(); return false;">
+                        <span style="font-weight:700;">in</span>
+                        <span lang-en>Share on LinkedIn</span>
+                        <span lang-nl>Deel op LinkedIn</span>
+                    </a>
+                    <a class="share-btn" href="#" onclick="copyLink(); return false;">
+                        <span>🔗</span>
+                        <span lang-en>Copy link</span>
+                        <span lang-nl>Kopieer link</span>
+                    </a>
+                </div>
+                <div class="share-hint">
+                    <span lang-en>Each friend who joins moves you up 50 spots</span>
+                    <span lang-nl>Elke vriend die zich aanmeldt, schuif je 50 plekken omhoog</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="scroll-hint" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">
+            <div class="scroll-arrow">↓</div>
+            <span lang-en>Learn more</span>
+            <span lang-nl>Lees verder</span>
+        </button>
+    </section>
+
+    <!-- STATS -->
+    <div class="section" id="stats" style="padding-top: 60px;">
+        <div class="stats-text-center fade-in">
+            <div class="stats-text" lang-en>Developed for and by experts: <strong>Career coaches, business managers and
+                    top professionals.</strong></div>
+            <div class="stats-text" lang-nl>Ontwikkeld voor en door experts: <strong>Career coaches, business managers
+                    en de top-professionals van nu.</strong></div>
+        </div>
+        <div class="stats-row fade-in">
+            <div class="stat">
+                <div class="stat-num">250<span>+</span></div>
+                <div class="stat-label" lang-en>Interviews with experts</div>
+                <div class="stat-label" lang-nl>Interviews met experts</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">70<span>%</span></div>
+                <div class="stat-label" lang-en>of failed hires due to poor culture fit</div>
+                <div class="stat-label" lang-nl>van mislukte aannames door slechte cultuurfit</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">77<span>%</span></div>
+                <div class="stat-label" lang-en>of workers are disengaged at work (Gallup 2023)</div>
+                <div class="stat-label" lang-nl>van werkenden voelt zich niet betrokken op het werk (Gallup 2023)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">5<span>mo</span></div>
+                <div class="stat-label" lang-en>Average job search takes 5 months. It shouldn't.</div>
+                <div class="stat-label" lang-nl>Een gemiddelde jobzoektocht duurt 5 maanden. Dat kan anders.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROBLEM / SOLUTION -->
+    <div class="section fade-in">
+        <div class="section-tag" lang-en>The problem</div>
+        <div class="section-tag" lang-nl>Het probleem</div>
+        <h2 lang-en>Hiring is broken.<br><em>Here's how we fix it.</em></h2>
+        <h2 lang-nl>Hiring is kapot.<br><em>Zo lossen we het op.</em></h2>
+
+        <div class="split">
+            <!-- BAD SIDE -->
+            <div class="split-col">
+                <div class="split-label bad">
+                    <span lang-en>Today</span>
+                    <span lang-nl>Vandaag</span>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">😩</div>
+                    <div class="split-item-text">
+                        <strong lang-en>CV screening kills real talent</strong>
+                        <strong lang-nl>CV-screening doodt echt talent</strong>
+                        <span lang-en>HR filters on keywords and years of experience. The real you is invisible.</span>
+                        <span lang-nl>HR filtert op trefwoorden en jaren ervaring. Jij als persoon bent
+                            onzichtbaar.</span>
+                    </div>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">🥶</div>
+                    <div class="split-item-text">
+                        <strong lang-en>Cold outreach on LinkedIn</strong>
+                        <strong lang-nl>Koude outreach op LinkedIn</strong>
+                        <span lang-en>Cold LinkedIn acquisition targeting business managers is like shooting in the
+                            dark. LinkedIn is for updates about your career and connecting with your existing
+                            network.</span>
+                        <span lang-nl>Koude LinkedIn-acquisitie naar business managers is schieten in de leegte.
+                            Linkedin is voor updates over je carriere en te connecten met je bestaande netwerk.</span>
+                    </div>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">📊</div>
+                    <div class="split-item-text">
+                        <strong lang-en>Companies hire on CV, fire on culture</strong>
+                        <strong lang-nl>Bedrijven huren in op CV, ontslaan op cultuur</strong>
+                        <span lang-en>70% of failed hires are due to poor culture fit, not lacking skills.</span>
+                        <span lang-nl>70% van mislukte aannames is door slechte cultuurfit, niet door ontbrekende
+                            vaardigheden.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOOD SIDE -->
+            <div class="split-col">
+                <div class="split-label good">
+                    <span lang-en>With Buzbo</span>
+                    <span lang-nl>Met Buzbo</span>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">✨</div>
+                    <div class="split-item-text">
+                        <strong lang-en>Soft skills first</strong>
+                        <strong lang-nl>Soft skills eerst</strong>
+                        <span lang-en>Your working style, values, and personality are front and center. Experience is
+                            secondary.</span>
+                        <span lang-nl>Je werkstijl, waarden en persoonlijkheid staan centraal. Ervaring is
+                            secundair.</span>
+                    </div>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">🎯</div>
+                    <div class="split-item-text">
+                        <strong lang-en>Direct connection</strong>
+                        <strong lang-nl>Direct in contact</strong>
+                        <span lang-en>With Buzbo: Directly in contact with business managers who actually make the
+                            decisions.</span>
+                        <span lang-nl>Met Buzbo: Direct in contact met business managers die daadwerkelijk de
+                            beslissingen nemen.</span>
+                    </div>
+                </div>
+                <div class="split-item">
+                    <div class="split-icon">🤝</div>
+                    <div class="split-item-text">
+                        <strong lang-en>Mutual matching — no cold outreach</strong>
+                        <strong lang-nl>Wederzijds matchen — geen koude outreach</strong>
+                        <span lang-en>Both sides express interest before any contact. Every connection is warm.</span>
+                        <span lang-nl>Beide kanten tonen interesse voor er contact is. Elke connectie is warm.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY BUZBO (V2 content in V1 format) -->
+    <div class="section fade-in" style="background: transparent;">
+        <div class="section-tag" lang-en>Why Buzbo</div>
+        <div class="section-tag" lang-nl>Waarom Buzbo</div>
+        <h2 lang-en>Direct. Personal.<br><em>No gatekeepers.</em></h2>
+        <h2 lang-nl>Direct. Persoonlijk.<br><em>Geen tussenpersonen.</em></h2>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-num">01</div>
+                <div class="value-title" lang-en>You reach the decision-maker</div>
+                <div class="value-title" lang-nl>Je bereikt de beslisser</div>
+                <div class="value-desc" lang-en>No HR screening. No recruiter middleman. You connect directly with the
+                    business manager who knows the team, sets the culture, and makes the final call.</div>
+                <div class="value-desc" lang-nl>Geen HR-screening. Geen recruiter tussenin. Je verbindt direct met de
+                    business manager die het team kent, de cultuur bepaalt en de knoop doorhakt.</div>
+                <span class="value-tag" lang-en>Direct connection</span>
+                <span class="value-tag" lang-nl>Direct contact</span>
+            </div>
+            <div class="value-card">
+                <div class="value-num">02</div>
+                <div class="value-title" lang-en>Matched on who you are</div>
+                <div class="value-title" lang-nl>Gematcht op wie je bent</div>
+                <div class="value-desc" lang-en>Your working style, values, ambition, and energy come first. Experience
+                    is visible — but it's never the filter. Companies find you because you fit, not because your CV has
+                    keywords.</div>
+                <div class="value-desc" lang-nl>Je werkstijl, waarden, ambitie en energie staan centraal. Ervaring is
+                    zichtbaar — maar nooit het filter. Bedrijven vinden jou omdat je past, niet om trefwoorden op je CV.
+                </div>
+                <span class="value-tag" lang-en>Soft skills first</span>
+                <span class="value-tag" lang-nl>Soft skills eerst</span>
+            </div>
+            <div class="value-card">
+                <div class="value-num">03</div>
+                <div class="value-title" lang-en>Mutual matching — no rejection</div>
+                <div class="value-title" lang-nl>Wederzijdse match — geen afwijzingen</div>
+                <div class="value-desc" lang-en>Both sides opt in before any conversation starts. No cold applications
+                    into a black hole. No ghosting. When you connect, it means something to both of you.</div>
+                <div class="value-desc" lang-nl>Beide kanten stemmen in voordat er contact is. Geen koude sollicitaties
+                    in een zwart gat. Geen ghosting. Een connectie betekent dat het wederzijds is.</div>
+                <span class="value-tag" lang-en>Mutual opt-in</span>
+                <span class="value-tag" lang-nl>Wederzijds</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUOTES -->
+    <div class="section fade-in">
+        <div class="section-tag" lang-en>100+ conversations</div>
+        <div class="section-tag" lang-nl>100+ gesprekken</div>
+        <h2 lang-en>What business managers<br><em>told us</em></h2>
+        <h2 lang-nl>Wat business managers<br><em>ons vertelden</em></h2>
+
+        <div class="quotes-grid">
+            <div class="quote-card">
+                <div class="quote-mark">"</div>
+                <div class="quote-text" lang-en>HR sends me people who can all 'do sales.' But which one thrives in
+                    chaos? Which one drains my energy? I only find out after hiring.</div>
+                <div class="quote-text" lang-nl>HR stuurt me mensen die allemaal 'sales kunnen doen.' Maar wie gedijt in
+                    chaos? Wie kost me energie? Dat weet ik pas na het aannemen.</div>
+                <div class="quote-author">Sales Director</div>
+                <div class="quote-role" lang-en>SaaS company · The Hague</div>
+                <div class="quote-role" lang-nl>SaaS bedrijf · Den Haag</div>
+            </div>
+            <div class="quote-card">
+                <div class="quote-mark">"</div>
+                <div class="quote-text" lang-en>I interview 10 people to find 1. Half are obvious no's within 5 minutes.
+                    I'd pay to pre-filter for culture fit.</div>
+                <div class="quote-text" lang-nl>Ik interview 10 mensen om er 1 te vinden. De helft is binnen 5 minuten
+                    duidelijk niet geschikt. Ik zou betalen om vooraf te filteren op cultuurfit.</div>
+                <div class="quote-author">Founder</div>
+                <div class="quote-role" lang-en>Marketing agency · Amsterdam</div>
+                <div class="quote-role" lang-nl>Marketing bureau · Amsterdam</div>
+            </div>
+            <div class="quote-card">
+                <div class="quote-mark">"</div>
+                <div class="quote-text" lang-en>Everyone I ever fired had the right experience. They all failed on soft
+                    skills — couldn't take feedback, didn't collaborate, quit when things got hard.</div>
+                <div class="quote-text" lang-nl>Iedereen die ik ooit heb ontslagen had de juiste ervaring. Ze faalden
+                    allemaal op soft skills — konden geen feedback ontvangen, werkten niet samen, stopten als het
+                    moeilijk werd.</div>
+                <div class="quote-author">Country Manager</div>
+                <div class="quote-role" lang-en>Scale-up · Rotterdam</div>
+                <div class="quote-role" lang-nl>Scale-up · Rotterdam</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="bottom-cta fade-in">
+        <div class="cta-card">
+            <h2 lang-en>Be the first to<br>know when we launch</h2>
+            <h2 lang-nl>Wees er als eerste<br>bij als we lanceren</h2>
+            <p lang-en>Join the waitlist. Claim your profile. Get early access.</p>
+            <p lang-nl>Meld je aan. Claim je profiel. Krijg vroege toegang.</p>
+            <div class="cta-form">
+                <input class="cta-input" type="email" id="cta-email" name="email" placeholder="your@email.com" required>
+                <button type="submit" class="cta-btn" onclick="handleCtaSignup()">
+                    <span lang-en>Join waitlist</span>
+                    <span lang-nl>Aanmelden</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">buzbo</div>
+        <div class="footer-text">
+            <span lang-en>© 2026 Buzbo. Built in The Netherlands. Launching in New York.</span>
+            <span lang-nl>© 2026 Buzbo. Gebouwd in Nederland. Lancering in New York.</span>
+        </div>
+    </footer>
+
+    <script>
+        // ── LANGUAGE ──
+        function setLang(lang) {
+            document.body.classList.remove('en', 'nl');
+            document.body.classList.add(lang);
+            document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', (i === 0 && lang === 'en') || (i === 1 && lang === 'nl'));
+            });
+            document.documentElement.lang = lang;
+        }
+
+        // ── ANIMATED COUNTER ──
+        function animateCount(el, target, duration) {
+            const start = Date.now();
+            const startVal = 0;
+            function update() {
+                const elapsed = Date.now() - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(startVal + eased * target);
+                el.textContent = current.toLocaleString() + '+';
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const enEl = document.getElementById('count-en');
+                const nlEl = document.getElementById('count-nl');
+                if (enEl) animateCount(enEl, 326, 2200);
+                if (nlEl) animateCount(nlEl, 326, 2200);
+            }, 600);
+        });
+
+        // ── SIGNUP ──
+        let waitlistCount = 326;
+
+        function submitToFormspree(email, successCallback) {
+            fetch('https://formspree.io/f/xrearvea', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        successCallback();
+                    } else {
+                        alert("Er is iets misgegaan bij het aanmelden. Probeer het later nog eens.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting to Formspree:', error);
+                    successCallback(); // Fallback in case of CORS blocks, though formspree shouldn't block it.
+                });
+        }
+
+        function handleSignup() {
+            const email = document.getElementById('email-input').value;
+            if (!email || !email.includes('@')) {
+                document.getElementById('email-input').style.borderColor = 'var(--maroon)';
+                document.getElementById('email-input').placeholder = document.body.classList.contains('nl') ? 'Vul een geldig e-mailadres in' : 'Enter a valid email';
+                return;
+            }
+
+            const btn = document.getElementById('signup-btn');
+            const originalHtml = btn.innerHTML;
+            btn.innerText = 'Versturen...';
+            btn.disabled = true;
+
+            submitToFormspree(email, () => {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+                submitSignup(email, 'signup-form', 'success-card');
+            });
+        }
+
+        function handleCtaSignup() {
+            const email = document.getElementById('cta-email').value;
+            if (!email || !email.includes('@')) {
+                document.getElementById('cta-email').style.borderColor = 'rgba(255,255,255,0.5)';
+                return;
+            }
+
+            const btn = document.querySelector('.cta-btn');
+            btn.innerText = '...';
+            btn.disabled = true;
+
+            submitToFormspree(email, () => {
+                const nl = document.body.classList.contains('nl');
+                document.querySelector('.cta-form').innerHTML = `<div style="color:var(--white);font-size:16px;font-weight:600;padding:16px;">${nl ? '✓ Je staat op de wachtlijst!' : '✓ You\'re on the waitlist!'}</div>`;
+            });
+        }
+
+        function submitSignup(email, formId, successId) {
+            waitlistCount++;
+            const position = waitlistCount;
+            document.getElementById(formId).style.display = 'none';
+            document.querySelector('.signup-note').style.display = 'none';
+            const successCard = document.getElementById(successId);
+            document.getElementById('position-num').textContent = '#' + position.toLocaleString();
+            successCard.classList.add('show');
+
+            // Update counters
+            const enEl = document.getElementById('count-en');
+            const nlEl = document.getElementById('count-nl');
+            if (enEl) enEl.textContent = waitlistCount.toLocaleString() + '+';
+            if (nlEl) nlEl.textContent = waitlistCount.toLocaleString('nl-NL') + '+';
+        }
+
+        // ── SHARE ──
+        function shareLinkedIn() {
+            const nl = document.body.classList.contains('nl');
+            const text = nl
+                ? 'Ik heb me aangemeld voor Buzbo — een platform dat professionals matcht op soft skills en cultuurfit, niet alleen een CV. Join de wachtlijst:'
+                : "I just joined the Buzbo waitlist — a platform that matches professionals based on soft skills and culture fit, not just a CV. Join here:";
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&summary=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const nl = document.body.classList.contains('nl');
+                const btn = event.target.closest('.share-btn');
+                const original = btn.innerHTML;
+                btn.innerHTML = `<span>${nl ? '✓ Gekopieerd!' : '✓ Copied!'}</span>`;
+                setTimeout(() => { btn.innerHTML = original; }, 2000);
+            });
+        }
+
+        // ── SCROLL ANIMATIONS ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ── EMAIL ENTER KEY ──
+        document.getElementById('email-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') handleSignup();
+        });
+    </script>
+</body>
+
+</html>
