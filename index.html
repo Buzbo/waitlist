@@ -779,6 +779,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(ellipse at 30% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         .cta-card h2 {
@@ -981,11 +982,106 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
             .lang-bar {
-                padding: 16px 24px;
+                padding: 12px 20px;
             }
 
+            .logo-img {
+                height: 24px;
+            }
+
+            /* Better hero spacing for mobile to prevent element overlapping */
+            .hero {
+                min-height: auto;
+                padding: 160px 20px 60px;
+                justify-content: flex-start;
+            }
+
+            /* Fix scroll hint position to avoid covering the signup button */
+            .scroll-hint {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: clamp(38px, 10vw, 56px);
+                letter-spacing: -1px;
+                margin-bottom: 20px;
+            }
+
+            .hero-sub {
+                font-size: 15px;
+                margin-bottom: 32px;
+            }
+
+            /* Stack live counter neatly */
+            .live-counter {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 32px;
+            }
+
+            .counter-avatars {
+                justify-content: center;
+            }
+
+            /* Fix signup form layout for mobile so buttons remain clickable and properly sized */
+            .signup-wrap {
+                width: 100%;
+            }
+
+            .signup-form {
+                flex-direction: column;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                gap: 12px;
+            }
+
+            .signup-form:focus-within {
+                border-color: transparent;
+                box-shadow: none;
+            }
+
+            .signup-input {
+                width: 100%;
+                background: var(--white);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 16px 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            }
+
+            .signup-input:focus {
+                border-color: var(--maroon);
+                box-shadow: 0 4px 20px var(--maroon-glow);
+            }
+
+            .signup-btn {
+                width: 100%;
+                padding: 16px;
+                border-radius: 12px;
+                font-size: 16px;
+            }
+
+            .success-card {
+                padding: 24px 20px;
+            }
+
+            .success-num {
+                font-size: 48px;
+            }
+
+            /* Fix shared grid layouts */
             .section {
-                padding: 64px 24px;
+                padding: 60px 20px;
+            }
+
+            .section h2 {
+                margin-bottom: 40px;
             }
 
             .split,
@@ -996,29 +1092,55 @@
 
             .stats-row {
                 flex-direction: column;
+                gap: 1px;
             }
 
+            /* Better padding for split items and value cards on mobile */
+            .split-col,
+            .value-card,
+            .stat {
+                padding: 32px 24px;
+            }
+
+            /* Fix bottom CTA layout */
             .bottom-cta {
-                padding: 0 24px;
+                padding: 0 20px;
+                margin: 0 auto 60px;
             }
 
             .cta-card {
-                padding: 48px 28px;
+                padding: 40px 20px;
+                border-radius: 20px;
             }
 
             .cta-form {
                 flex-direction: column;
+                gap: 12px;
+            }
+
+            .cta-input,
+            .cta-btn {
+                width: 100%;
+            }
+
+            .cta-input {
+                padding: 16px 20px;
+            }
+
+            .cta-btn {
+                padding: 16px;
+                font-size: 16px;
             }
 
             footer {
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
-                padding: 32px 24px;
+                padding: 40px 20px 20px;
             }
 
-            .hero h1 {
-                letter-spacing: -1px;
+            .giant-logo {
+                font-size: 20vw;
             }
         }
 
